@@ -1,0 +1,31 @@
+a. What is the Object class in .NET Framework?
+Object is the base class from which all types in .NET derive.
+
+It’s defined in the System namespace and provides basic methods such as:
+
+ToString() – Returns a string that represents the object.
+
+Equals() – Checks object equality.
+
+GetHashCode() – Returns a hash code for the object.
+
+GetType() – Gets the runtime type of the object.
+
+
+
+b. What is Boxing and Unboxing?
+These are operations that convert between value types and object types:
+
+Boxing
+Converting a value type (e.g., int, bool) into an object.
+
+Unboxing
+Extracting the value type from the object.
+
+
+c. Difference between int.Parse() and Convert.ToInt32()
+Feature	int.Parse()	Convert.ToInt32()
+Source Type	Only works with string	Works with multiple types
+Null Input	Throws ArgumentNullException	Returns 0
+Invalid Format	Throws FormatException	Also throws FormatException
+Use Case	Strict parsing from strings	Flexible conversion (e.g. from bool, object, string)
