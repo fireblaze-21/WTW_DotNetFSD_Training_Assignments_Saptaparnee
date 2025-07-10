@@ -20,9 +20,7 @@ namespace Day2
             Console.WriteLine($"Employee-ID: {id}");
             Console.WriteLine($"Employee-Name: {name}");
             Console.WriteLine($"Employee-Job: {job}");
-
-
-
+            
             if (!string.IsNullOrEmpty(displayDate))
             {
                 Console.WriteLine($"Employee Termination Date : {displayDate}");
@@ -41,9 +39,9 @@ namespace Day2
         {
 
             DisplayResult(1,"Scott","CEO", "1.1.2025");
-            DisplayResult(2,"Smith","Analyst","");
+            DisplayResult(2,"Smith","Analyst");
             DisplayResult(3,"Sam","Manager" ,"3.6.2025");
-            DisplayResult(4,"Bob","Teacher","");
+            DisplayResult(4,"Bob","Teacher");
            
             Console.ReadLine();
         }

@@ -11,20 +11,15 @@ namespace Day2
         
         // Compile-time constant (fixed value)
         public const int MaximumConnections = 100;
-
-        
          // Runtime-initialized readonly variable
-    public  readonly string ApiKey;
-
-    
-     public configurationManager(string apiKey)
-    {
-        ApiKey = apiKey;
-    }
-    public void display()
+        public  readonly string ApiKey;
+        public configurationManager(string apiKey)
         {
-            Console.WriteLine($"Maximum Connections: {MaximumConnections}");
-           
+           ApiKey = apiKey;
+        }
+        public void display()
+        {
+            Console.WriteLine($"Maximum Connections: {MaximumConnections}"); 
         }
     }
 
@@ -35,14 +30,14 @@ namespace Day2
         {
 
             configurationManager obj1 = new configurationManager("ABC123");
-           
-             Console.WriteLine($"API Key: {obj1.ApiKey}");
+            obj1.display();
+            Console.WriteLine($"API Key: {obj1.ApiKey}");
 
             Console.WriteLine("--------------------------------------");
 
-             configurationManager obj2 = new configurationManager("XYZ789");
-           
-             Console.WriteLine($"API Key: {obj2.ApiKey}");
+            configurationManager obj2 = new configurationManager("XYZ789");
+            obj2.display();
+            Console.WriteLine($"API Key: {obj2.ApiKey}");
 
 
             Console.ReadLine();
