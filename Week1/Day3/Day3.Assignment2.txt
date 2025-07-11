@@ -1,0 +1,58 @@
+a. Diff. between ReadLine(), Read(), ReadKey() methods
+
+1. Console.ReadLine()
+Reads: An entire line of input (until Enter is pressed).
+Returns: A string.
+Use Case: When you want to capture full user input like names, sentences, or numbers as text.
+
+2. Console.Read()
+Reads: The next character from the input stream.
+Returns: An int (ASCII/Unicode value of the character).
+Use Case: When you want to process input character by character
+
+3. Console.ReadKey()
+Reads: A single key press (does not wait for Enter).
+Returns: A ConsoleKeyInfo object (includes key, char, and modifier info).
+Use Case: For interactive input like menus, games, or shortcuts.
+
+ Comparison Table
+Feature         	ReadLine()	         Read()	                                       ReadKey()
+Returns	                string	                 int (Unicode)	                               ConsoleKeyInfo
+Reads Until	   Enter is pressed	         First character only	                       First key press
+Echoes Input?	       Yes	                 Yes	                                       Yes (can be disabled)
+Use Case	    Full input line	        Character-by-character	                       Key press detection
+Needs Enter?	      Yes	                  Yes	                                       No
+
+
+b. What are the usages of "using" keyword in C#?
+
+1. Namespace Import
+Used to include namespaces so you can use their classes without fully qualifying them.
+Purpose: Makes code cleaner and easier to read.
+Example: Instead of writing System.Console.WriteLine(), you can just write Console.WriteLine().
+
+2. Resource Management (using Statement)
+Used to ensure that IDisposable objects (like files, streams, database connections) are properly disposed of after use.
+Purpose: Automatically calls Dispose() on the object when the block ends.
+Benefit: Prevents memory leaks and ensures proper cleanup of unmanaged resources.
+
+
+3. C# 8.0+ using Declaration
+Introduced in C# 8.0, this allows declaring a disposable object with using without a block.
+Cleaner Syntax.
+Object is done at the method or block.
+
+
+
+c. What is the purpose of the null-coalescing operator ?
+
+The null-coalescing operator in C# is ??, and its main purpose is to provide a default value when a variable is null.
+
+
+var result = value ?? defaultValue;
+
+
+string name = null;
+string displayName = name ?? "Guest";
+Console.WriteLine(displayName);  // Output: Guest
+
