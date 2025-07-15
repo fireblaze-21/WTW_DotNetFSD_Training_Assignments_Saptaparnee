@@ -1,0 +1,11 @@
+Method Overloading
+Definition: Method overloading allows multiple methods in the same class to have the same name but different parameters (type, number, or order).
+They differ by:
+Number of parameters
+Type of parameters
+Method overloading is a feature in C# that allows multiple methods to share the same name but differ in their parameter list—either by the number of parameters, their types, or their order. This enhances code readability and flexibility, as developers can use the same method name for similar operations that require different inputs. For example, a method named Add can be overloaded to accept two integers, two doubles, or even three integers. The compiler determines which version of the method to call based on the arguments provided. Overloading is a form of compile-time polymorphism, and it helps in writing cleaner and more intuitive code by grouping related functionalities under a common method name.
+
+
+
+ Method Recursion
+Method recursion refers to a programming technique where a method calls itself to solve a problem. This is especially useful for tasks that can be broken down into smaller, similar sub-tasks—such as calculating factorials, traversing trees, or solving mathematical puzzles. A recursive method must include a base case to stop the recursion; otherwise, it will lead to infinite calls and eventually a stack overflow error. For instance, in a factorial calculation, the method keeps calling itself with a decremented value until it reaches 1, at which point it stops and begins returning the results back up the call stack. Recursion can simplify complex problems, but it should be used carefully to ensure efficiency and prevent excessive memory usage.
