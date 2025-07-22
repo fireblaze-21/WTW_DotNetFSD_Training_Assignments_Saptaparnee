@@ -1,0 +1,104 @@
+What is SortedSet<T> in C#?
+SortedSet<T> is a collection in C# that stores unique elements (like a HashSet) but automatically keeps them sorted in ascending order by default. It implements the ISet<T> interface and ensures:
+
+No duplicates (each element is unique).
+
+The elements are always maintained in sorted order.
+
+Provides efficient lookup, insertion, and removal operations.
+
+Difference between HashSet<T> and SortedSet<T>
+Feature	HashSet<T>	SortedSet<T>
+Ordering	No guaranteed order	Automatically sorted order (ascending)
+Performance	Generally faster for insertion & lookup	Slightly slower due to sorting overhead
+Internal Data Structure	Hash-based (hash table)	Balanced tree (usually a red-black tree)
+Use Case	When order doesn't matter, only uniqueness	When uniqueness and sorted order matter
+Supports Range Operations	No	Yes (e.g., GetViewBetween)
+
+
+Simple Example Using SortedSet<T>
+csharp
+Copy
+Edit
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        SortedSet<int> numbers = new SortedSet<int>();
+
+        // Adding elements (duplicates will be ignored)
+        numbers.Add(50);
+        numbers.Add(20);
+        numbers.Add(40);
+        numbers.Add(10);
+        numbers.Add(40);  // Duplicate, will not be added
+
+        Console.WriteLine("Elements in SortedSet (always sorted):");
+        foreach (int num in numbers)
+        {
+            Console.WriteLine(num);
+        }
+
+        // Check if an element exists
+        if (numbers.Contains(20))
+        {
+            Console.WriteLine("20 is in the set.");
+        }
+
+        // Remove an element
+        numbers.Remove(10);
+
+        Console.WriteLine("After removing 10:");
+
+        foreach (int num in numbers)
+        {
+            Console.WriteLine(num);
+        }
+    }
+}
+
+
+Output:
+
+Elements in SortedSet (always sorted):
+10
+20
+40
+50
+20 is in the set.
+After removing 10:
+20
+40
+50
+
+What are the diff. between  SortedList vs SortedSet?
+
+
+| Feature                | SortedList                                                         | SortedSet                                              |
+| ---------------------- | ------------------------------------------------------------------ | ------------------------------------------------------ |
+| **Type of collection** | Collection of **key-value pairs** (like a dictionary)              | Collection of **unique elements** (like a set)         |
+| **Namespace**          | `System.Collections.Generic`                                       | `System.Collections.Generic`                           |
+| **Data structure**     | Internally uses arrays (keys and values stored in parallel arrays) | Internally uses a balanced tree (e.g., red-black tree) |
+| **Ordering**           | Sorted by **keys** in ascending order                              | Sorted by **values** (elements) in ascending order     |
+| **Duplicates**         | Keys are unique, values can be duplicated                          | Elements are unique (no duplicates allowed)            |
+| **Lookup**             | Fast lookup by key (`O(log n)`)                                    | Fast lookup by element (`O(log n)`)                    |
+| **Access**             | Access by **key** and by index                                     | Access only by element                                 |
+| **Purpose**            | Stores **key-value pairs** sorted by key                           | Stores unique elements sorted                          |
+| **Indexing support**   | Supports indexing (access by index or key)                         | No indexing, only set operations                       |
+| **Use case**           | When you need **sorted dictionary/map** functionality              | When you need a sorted collection of unique values     |4
+
+
+| Aspect           | SortedList        | SortedSet                     |
+| ---------------- | ----------------- | ----------------------------- |
+| Stores           | Key-value pairs   | Unique elements               |
+| Sorted by        | Keys              | Elements themselves           |
+| Duplicate keys   | Not allowed       | N/A (no keys, just elements)  |
+| Duplicate values | Allowed           | Not allowed (elements unique) |
+| Access           | By key or index   | By element only               |
+| Typical usage    | Sorted dictionary | Sorted set of unique items    |
+
+
+
