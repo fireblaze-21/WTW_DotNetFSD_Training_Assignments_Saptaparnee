@@ -1,0 +1,10 @@
+﻿Patients,PK__Patients__970EC34684A66853,1,7,7,0,1
+Appointments,PK__Appointm__8ECDFCA2415D3C9F,1,1,10,0,4
+Doctors,PK__Doctors__2DC00EDF783E4127,1,8,2,0,1
+Appointments,IX_Appointments_PatientID_Status,6,2,0,0,2
+Appointments,IX_Appointments_Doctor_Status,8,1,0,0,2
+Appointments,IX_Appointments_Date_Status,7,0,0,0,2
+Appointments,IX_Appointments_Status,5,0,0,0,4
+Appointments,IX_Appointments_AppointmentDate,4,0,0,0,3
+Appointments,IX_Appointments_DoctorID,3,0,0,0,3
+Appointments,IX_Appointments_PatientID,2,0,0,0,3
