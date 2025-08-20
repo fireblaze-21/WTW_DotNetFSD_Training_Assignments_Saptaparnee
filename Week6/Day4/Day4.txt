@@ -1,0 +1,81 @@
+a. Layout View — @RenderBody()
+
+What is Layout View?
+A Layout View in ASP.NET Core MVC acts like a master page or template that contains the common HTML structure shared by multiple views (e.g., header, footer, navigation menu).
+
+@RenderBody()
+This is a placeholder in the layout where the content of individual views is injected.
+When you create a view that uses the layout, the content inside that view replaces the @RenderBody() section.
+
+Example:
+
+<!-- _Layout.cshtml -->
+<html>
+  <head>
+    <title>My Website</title>
+  </head>
+  <body>
+    <header>My header here</header>
+    @RenderBody()  <!-- View content goes here -->
+    <footer>My footer here</footer>
+  </body>
+</html>
+
+b. What is Model Binding?
+
+Definition:
+Model Binding is the process by which ASP.NET Core MVC maps data from HTTP requests (like form fields, query strings, route data) to action method parameters or model properties automatically.
+
+How it works:
+When a form is submitted or data is sent in the URL, MVC automatically binds the data to the parameters of the controller action or to a model object, so you don’t have to manually parse request data.
+
+Example:
+If your form posts data with fields Name and Age, you can accept a model parameter in your action method and MVC fills it automatically:
+
+public IActionResult SubmitForm(Person person)
+{
+    // 'person' is automatically populated from form data
+}
+
+c. What is ModelState in ASP.NET Core MVC Application? How to use?
+
+Definition:
+ModelState represents the state of model binding and validation in ASP.NET Core MVC. It contains information about whether the data submitted by the user is valid or if there are errors.
+
+Usage:
+After model binding, MVC automatically validates the model (based on data annotations or custom validation).
+You check ModelState.IsValid to see if the input data is valid before processing it.
+
+Example:
+
+[HttpPost]
+public IActionResult Create(Person person)
+{
+    if (ModelState.IsValid)
+    {
+        // The model is valid, proceed with saving or other logic
+    }
+    else
+    {
+        // There are validation errors, return the view with errors displayed
+        return View(person);
+    }
+}
+
+d. What is the use of asp-validation-for tag helper attribute?
+
+Purpose:
+The asp-validation-for attribute is a Tag Helper used in Razor views to display validation error messages for a specific model property.
+
+How it works:
+It automatically shows validation error messages that are present in the ModelState for the bound property.
+
+Example in a form:
+
+<input asp-for="Name" />
+<span asp-validation-for="Name" class="text-danger"></span>
+
+
+The <input> binds to the Name property of the model.
+
+The <span> will display any validation error related to Name, like "Name is required" if the user leaves it empty.

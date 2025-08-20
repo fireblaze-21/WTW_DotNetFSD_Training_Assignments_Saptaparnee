@@ -1,0 +1,17 @@
+﻿@model Movie
+
+@{
+    ViewData["Title"] = "Movie Details";
+}
+
+<h2>Movie Details</h2>
+
+<div>
+    <strong>Title:</strong> @Model.Title <br />
+    <strong>Genre:</strong> @Model.Genre <br />
+    <strong>Release Year:</strong> @Model.ReleaseYear <br />
+    <strong>Director:</strong> @Model.Director <br />
+    <strong>Rating:</strong> @Model.Rating <br />
+</div>
+
+<p><a asp-action="Index">Back to Movie List</a></p>

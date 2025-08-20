@@ -1,0 +1,35 @@
+﻿
+@model List<Movie>
+@{
+    ViewData["Title"] = "Search Movies";
+    string query = ViewBag.Query as string;
+}
+
+<h2>Search Movies</h2>
+
+<form asp-action="Search" method="get">
+    <input type="text" name="query" value="@query" placeholder="Enter movie title" />
+    <button type="submit">Search</button>
+</form>
+
+<p><a asp-action="Index">Back to Full List</a></p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Title</td>
+                <td>@movie.Genre</td>
+                <td>@movie.Rating</td>
+            </tr>
+        }
+    </tbody>
+</table>
