@@ -1,0 +1,42 @@
+﻿@model MvcApplication.Models.Claim
+
+@{
+    ViewData["Title"] = "Claim Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model == null)
+{
+    <div class="alert alert-danger">Claim not found.</div>
+}
+else
+{
+    <dl class="row">
+        <dt class="col-sm-3">Claim ID</dt>
+        <dd class="col-sm-9">@Model.ClaimId</dd>
+
+        <dt class="col-sm-3">Policy Number</dt>
+        <dd class="col-sm-9">@Model.PolicyNumber</dd>
+
+        <dt class="col-sm-3">Claim Type</dt>
+        <dd class="col-sm-9">@Model.ClaimType</dd>
+
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+
+        <dt class="col-sm-3">Claim Amount</dt>
+        <dd class="col-sm-9">@Model.ClaimAmount.ToString("C")</dd>
+
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">@Model.Status</dd>
+
+        <dt class="col-sm-3">Created At</dt>
+        <dd class="col-sm-9">@Model.CreatedAt.ToLocalTime().ToString("g")</dd>
+
+        <dt class="col-sm-3">Updated At</dt>
+        <dd class="col-sm-9">@Model.UpdatedAt.ToLocalTime().ToString("g")</dd>
+    </dl>
+
+    <a class="btn btn-primary" href="@Url.Action("Index")">Back to List</a>
+}

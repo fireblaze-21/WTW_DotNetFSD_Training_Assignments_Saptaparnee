@@ -1,0 +1,199 @@
+✅ What is Content Negotiation?
+
+Content Negotiation is a mechanism defined in the HTTP specification (RFC 7231) that allows clients and servers to agree on the best format for data to be exchanged.
+
+In simple terms, Content Negotiation is the process of determining the best response format (like JSON, XML, etc.) based on the client’s request.
+
+🎯 Purpose:
+
+To provide data in the most appropriate format requested by the client.
+
+To support multiple data formats without changing the API endpoints.
+
+💡 How It Works
+
+When a client sends an HTTP request, it can include the Accept header to indicate the desired response media type (e.g., application/json, application/xml, etc.).
+
+
+Content Negotiation in .NET Web API
+
+In ASP.NET Web API, content negotiation is handled automatically using MediaTypeFormatters.
+
+🛠️ Key Components in .NET:
+Component	Description
+MediaTypeFormatter	Abstract class to serialize/deserialize objects.
+JsonMediaTypeFormatter	Handles JSON formatting.
+XmlMediaTypeFormatter	Handles XML formatting.
+
+.NET Web API selects the formatter based on:
+
+The Accept header of the request.
+
+Supported formatters registered in the pipeline.
+
+Default format if no match is found.
+
+
+
+
+
+
+
+What Does "Deprecating an API" Mean?
+
+Deprecating an API version means notifying users that a specific version of the API is no longer recommended for use and may be removed in the future. It allows clients time to migrate to a newer version.
+
+The key is to do it gracefully — with clear communication, support, and minimal disruption.
+
+🎯 Why Deprecate Gracefully?
+
+To maintain trust with API consumers.
+
+To avoid breaking existing client applications.
+
+To ensure a smooth transition to newer API versions.
+
+🔄 Graceful Deprecation Process (Step-by-Step)
+1. Use API Versioning
+
+In ASP.NET Core, use the Microsoft.AspNetCore.Mvc.Versioning package to manage API versions:
+
+2. Mark the API Version as Deprecated
+
+Use the [ApiVersion] attribute with Deprecated = true on your controller:
+
+
+3. Add Deprecation Warnings in HTTP Response Headers
+
+Include custom headers like this in your middleware or action filter:
+
+
+4. Update Documentation
+
+Clearly mark deprecated versions in Swagger (e.g., via Swashbuckle).
+
+Add migration guides in your API docs.
+
+Use [Obsolete] attribute if needed for clients consuming your SDKs.
+
+5. Notify Consumers
+
+Send email announcements to API users.
+
+Publish deprecation notices in changelogs or developer portals.
+
+Provide timelines and guidance on migrating to newer versions.
+
+
+What are Repository and Service Patterns?
+
+These are design patterns that help in building clean, maintainable, and testable applications, especially in layered architectures like ASP.NET Core MVC or Web API.
+
+1️⃣ Repository Pattern
+✅ Purpose:
+
+Abstracts the data access logic.
+
+Acts as a middle layer between the database (EF Core or any ORM) and the business logic.
+
+🎯 Responsibilities:
+
+Communicate with the database (CRUD operations).
+
+Hide complex querying logic from business layer.
+
+Promote loose coupling.
+
+
+public interface IProductRepository
+{
+    Task<IEnumerable<Product>> GetAllAsync();
+    Task<Product> GetByIdAsync(int id);
+    Task AddAsync(Product product);
+    void Update(Product product);
+    void Delete(Product product);
+}
+
+
+public class ProductRepository : IProductRepository
+{
+    private readonly AppDbContext _context;
+    public ProductRepository(AppDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<IEnumerable<Product>> GetAllAsync()
+        => await _context.Products.ToListAsync();
+
+    public async Task<Product> GetByIdAsync(int id)
+        => await _context.Products.FindAsync(id);
+
+    public async Task AddAsync(Product product)
+        => await _context.Products.AddAsync(product);
+
+    public void Update(Product product)
+        => _context.Products.Update(product);
+
+    public void Delete(Product product)
+        => _context.Products.Remove(product);
+}
+
+
+
+Service Pattern (aka Business Layer)
+✅ Purpose:
+
+Contains business logic.
+
+Acts as an intermediary between the controller and the repository.
+
+Helps in unit testing and keeping controllers thin.
+
+🎯 Responsibilities:
+
+Process and validate data.
+
+Call one or multiple repositories.
+
+Handle business rules before data hits the DB.
+
+public interface IProductService
+{
+    Task<IEnumerable<Product>> GetAllProductsAsync();
+    Task<Product> GetProductByIdAsync(int id);
+    Task CreateProductAsync(Product product);
+    Task UpdateProductAsync(Product product);
+    Task DeleteProductAsync(int id);
+}
+
+
+public class ProductService : IProductService
+{
+    private readonly IProductRepository _repository;
+    public ProductService(IProductRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        => await _repository.GetAllAsync();
+
+    public async Task<Product> GetProductByIdAsync(int id)
+        => await _repository.GetByIdAsync(id);
+
+    public async Task CreateProductAsync(Product product)
+        => await _repository.AddAsync(product);
+
+    public async Task UpdateProductAsync(Product product)
+        => _repository.Update(product);
+
+    public async Task DeleteProductAsync(int id)
+    {
+        var product = await _repository.GetByIdAsync(id);
+        if (product != null)
+        {
+            _repository.Delete(product);
+        }
+    }
+}
