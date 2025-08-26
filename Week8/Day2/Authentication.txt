@@ -1,0 +1,91 @@
+a. What is Cookie-based Authentication?
+
+Cookie-based authentication is a traditional and widely used method for maintaining a user's authenticated session in a web application.
+
+✅ How it works:
+
+User logs in with credentials.
+
+Server validates the user and creates an authentication cookie.
+
+The cookie is sent back to the client and stored in the browser.
+
+On every subsequent request, the browser automatically sends the cookie to the server.
+
+The server reads the cookie to determine who the user is and whether they're authenticated.
+
+✅ Characteristics:
+
+Cookie contains a token or encrypted identity info (not credentials).
+
+Works well for server-rendered web apps (MVC/Razor).
+
+Typically stored in HttpOnly and Secure flags for safety.
+
+
+| Feature                 | Cookie-based Auth                           | Token-based Auth (JWT)                         |
+| ----------------------- | ------------------------------------------- | ---------------------------------------------- |
+| **Storage**             | Browser cookie                              | Usually stored in localStorage or memory       |
+| **Transport**           | Sent automatically via `Cookie` header      | Sent manually via `Authorization` header       |
+| **Stateful/Stateless**  | Stateful (session managed on server)        | Stateless (no session on server)               |
+| **Cross-domain issues** | CORS is tricky due to cookie origin policy  | Easier to handle CORS                          |
+| **Revoking access**     | Easy (invalidate session server-side)       | Hard (must implement token blacklist manually) |
+| **Best used for**       | Web apps (MVC/Razor, server-side rendering) | APIs, mobile apps, SPAs (Angular/React/Vue)    |
+| **Security risk**       | Susceptible to CSRF (mitigated with tokens) | Susceptible to XSS if token is stored in JS    |
+| **Browser behavior**    | Sent automatically with every request       | You control when/where it's sent               |
+
+
+
+How does ASP.NET Core Identity work internally?
+
+ASP.NET Core Identity is a powerful framework for handling authentication, authorization, roles, and user management.
+
+| Component             | Description                                                                 |
+| --------------------- | --------------------------------------------------------------------------- |
+| **UserManager<T>**    | Handles all user-related operations (create, delete, update, password, etc) |
+| **SignInManager<T>**  | Manages login/logout/session, sets cookies, etc.                            |
+| **RoleManager<T>**    | Manages roles (create, assign, remove)                                      |
+| **IdentityDbContext** | Entity Framework context used for storing identity data (users, roles)      |
+
+
+
+
+✅ Flow (on login):
+
+User submits login form.
+
+SignInManager.PasswordSignInAsync(...) is called.
+
+If credentials are valid:
+
+A cookie is created using CookieAuthenticationHandler.
+
+Identity claims (e.g., username, roles) are stored in the cookie.
+
+Cookie is sent to client.
+
+On future requests, middleware checks cookie and loads user identity.
+
+🔧 Identity Tables Created:
+
+If using AddDefaultIdentity with EF Core, it generates:
+
+AspNetUsers
+
+AspNetRoles
+
+AspNetUserRoles
+
+AspNetUserClaims
+
+AspNetUserLogins
+
+AspNetRoleClaims
+
+🛠 Integration:
+
+You usually register Identity in Program.cs like:
+
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
